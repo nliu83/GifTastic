@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 
-    var animals = ['dogs', 'cats', 'turtles'];
+    var animals = ['mouse', 'ox', 'tiger', 'rabbit', 'dragon', 'snake', 'horse', 'sheep', 'monkey', 'rooster', 'dog', 'pig' ];
 
 
     function alertinput() {
@@ -44,11 +44,6 @@ $(document).ready(function() {
         
     });
 
-    $('.animalButtons').on('click', function(){
-
-        displayGIFs();
-    })
-
     
     function displayGIFs() {
 
@@ -71,15 +66,29 @@ $(document).ready(function() {
 
                 var p = $('<p>').text('Rating: ' + rating);
 
+                var gifAnimated = results[j].images.fixed_height.url;
+
+                var gifStill = results[j].images.fixed_height_still.url;
+
                 var animalImage = $('<img>');
 
-                animalImage.attr('src', results[j].images.fixed_height.url);
+                animalImage.attr('src', gifStill);
+
+                animalImage.attr('img-still', gifStill);
+
+                animalImage.attr('img-animated', gifAnimated);
+
+                animalImage.attr('data-state', 'still');
+
+                animalImage.addClass('Gifs');
 
                 gifDiv.append(p);
 
                 gifDiv.append(animalImage);
 
-                $('#animals-view').prepend(gifDiv);
+                $('#animals-view').append(gifDiv);
+
+                $('#animals-input').empty();
 
             };
         });
@@ -88,4 +97,19 @@ $(document).ready(function() {
     $(document).on('click', '.animalButtons', alertinput, displayGIFs);
     renderButtons();
 
+
+    $(document).on('click', '.Gifs', function(){
+
+        var state = $(this).attr("data-state");
+
+        if (state === "still") {
+            $(this).attr("src", $(this).attr("img-animated"));
+            $(this).attr("data-state", "gifAnimated");
+          } else {
+            $(this).attr("src", $(this).attr('img-still'));
+            $(this).attr("data-state", "gifStill");
+          };
+
+        
+    });
 });
