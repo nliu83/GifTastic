@@ -1,0 +1,9 @@
+.animalButtons {
+    color: teal;
+    margin: 10px;
+}
+
+#animals-form{
+    float: right;
+    position: static;
+}
